@@ -16,7 +16,8 @@ const gameController = {
 
         this.player = new Player()
         this.player.setPosition(200, 200)
-        this.player.setScale(100, 100)
+        this.player.setScale(30, 30)
+        this.player.setAppearance('green', 4)
     },
 
     update() {
