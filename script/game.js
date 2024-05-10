@@ -1,5 +1,6 @@
 import gameConfig from "../config/gameConfig.js";
 import Player from "../models/player.js"; // Adjust the path as needed
+import Weapon from "../models/weapon.js";
 
 
 const gameController = {
@@ -7,6 +8,7 @@ const gameController = {
     player: null,
     canvas: null,
     c: null,
+    weapon: [],
 
     init() {
         this.canvas = gameConfig.canvas;
@@ -18,10 +20,18 @@ const gameController = {
         this.player.setPosition(200, 200)
         this.player.setScale(30, 30)
         this.player.setAppearance('green', 4)
+
+
+        const playerWeapon = new Weapon(200, 200, 100, 20, 2000);
+        playerWeapon.setScale(20, 20);
+        this.weapon.push(playerWeapon);
     },
 
     update() {
         // Add your game logic update code here
+        this.weapon.forEach(weapon => {
+            weapon.update()
+        })
         this.player.update()
     },
 
@@ -29,6 +39,9 @@ const gameController = {
         // Add your drawing code here
         this.c.clearRect(0, 0, gameConfig.screenW, gameConfig.screenH)
         this.player.draw(this.c);
+        this.weapon.forEach(weapon => {
+            weapon.draw(this.c)
+        });
 
     },
 

@@ -20,6 +20,16 @@ class Entity {
         this.color = color
         this.speed = speed
     }
+    
+    isColliding(entityA, entityB) {
+    return (
+        entityA.x < entityB.x + entityB.w &&
+        entityA.x + entityA.w > entityB.x &&
+        entityA.y < entityB.y + entityB.h &&
+        entityA.y + entityA.h > entityB.y
+    );
+}
+
 }
 
 export default Entity

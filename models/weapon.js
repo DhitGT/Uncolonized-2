@@ -1,6 +1,9 @@
 import Bullet from "./bullet.js";
-class Weapon {
+import Entity from "./entity.js";
+
+class Weapon extends Entity {
     constructor(playerX, playerY, fireRate, magAmmo, reloadDelay) {
+        super();
         this.playerX = playerX;
         this.playerY = playerY;
         this.bullets = [];
@@ -108,6 +111,8 @@ class Weapon {
             }
 
         });
+
+        console.log(this.player.isColliding(this,))
     }
 
     draw(ctx) {
@@ -115,6 +120,9 @@ class Weapon {
         this.bullets.forEach(bullet => {
             bullet.draw(ctx);
         });
+
+        ctx.fillStyle = 'brown'
+        ctx.fillRect(this.playerX, this.playerY, this.w, this.h);
     }
 }
 
