@@ -28,9 +28,12 @@ const gameController = {
     },
 
     update() {
-        // Add your game logic update code here
+
         this.weapon.forEach(weapon => {
             weapon.update()
+            if (this.player.isColliding(this.player, weapon)) {
+                weapon.setParent(this.player)
+            }
         })
         this.player.update()
     },

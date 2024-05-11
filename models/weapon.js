@@ -1,5 +1,6 @@
 import Bullet from "./bullet.js";
 import Entity from "./entity.js";
+import Player from "./player.js";
 
 class Weapon extends Entity {
     constructor(playerX, playerY, fireRate, magAmmo, reloadDelay) {
@@ -15,6 +16,7 @@ class Weapon extends Entity {
         this.lastReloadTime = 0; // Initialize last reload time
         this.shootingInterval = null;
         this.reloading = false; // Track reloading state
+        this.parent = null;
     }
 
     updatePlayerPosition(x, y) {
@@ -58,7 +60,7 @@ class Weapon extends Entity {
         }
         if (event.button === 2) { // Right mouse button
             event.preventDefault(); // Prevent context menu
-            this.handleReleaseFire(event); // Stop shooting
+            this.handleReleaseFire(event); // Stop shooting mantap
             clearInterval(this.shootingInterval);
         }
     }
@@ -69,6 +71,11 @@ class Weapon extends Entity {
             clearInterval(this.shootingInterval);
         }
     }
+
+    setParent(player) {
+        this.parent = player
+    }
+
     handleReload(event) {
         if (event.key === 'r' && !this.reloading && this.magAmmo < this.maxAmmo) {
             this.reloading = true; // Set reloading state to true
@@ -112,7 +119,9 @@ class Weapon extends Entity {
 
         });
 
-        console.log(this.player.isColliding(this,))
+        if (this.parent != null) {
+            this.updatePlayerPosition(this.parent.x, this.parent.y);
+        }
     }
 
     draw(ctx) {
